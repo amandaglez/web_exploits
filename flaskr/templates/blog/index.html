@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+  {% if g.user %}
+    <!-- <a class="action" href="{{ url_for('blog.create') }}">New</a> -->
+    
+    <h1>Hello {{g.user[1]}}</h1>
+  {% endif %}
+  
+{% endblock %}
+
+{% block content %}
+  <!-- {% for post in posts %}
+    <article class="post">
+      <header>
+        <div>
+          <h1>{{ post['title'] }}</h1>
+          <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        {% if g.user['id'] == post['author_id'] %}
+          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+        {% endif %}
+      </header>
+      <p class="body">{{ post['body'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %} -->
+  {% if g.user %}
+
+    {% if g.user[3] == None %}
+
+      <form method="post">
+          <label for="word">Insert your secret word:</label>
+          <input name="secretWord" id="secretWord" value="{{ request.form['secretKey'] }}" required>
+          <input type="submit" value="Enter">
+      </form>
+      
+    {% endif %}
+
+    {% if g.user[3] != None %}
+
+      <h4>Your secret word is: {{g.user[3]}}</h4>
+
+    {% endif %}  
+
+  {% endif %}
+
+{% endblock %}
